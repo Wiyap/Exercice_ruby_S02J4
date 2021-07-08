@@ -6,20 +6,8 @@ def handle_length (tableau)
 end
 
 def handle_min_length (tableau)
-    h = 100
-    min_handle = 0
-    tableau.each do |n|
-        if h > n.length()
-            h = n.length()
-            min_handle = n
-        end
-    end
-    return min_handle.length
-end
-
-def handle_min_length_in_menu (tableau)
-    a = handle_min_length(tableau)
-    puts "Le handle le plus court fait #{(a)-1} caractères."
+    min_handle = tableau.min{|a,b| a.length <=> b.length}
+    puts "Le handle le plus court fait #{(min_handle.length)-1} caractères."
 end
 
 def handle_5_caracter (tableau)
@@ -54,12 +42,14 @@ end
 def handle_sort_by_alphabetic (tableau)
     journalist_sorted = tableau.map {|n| n.downcase}
     journalist_sorted = journalist_sorted.sort
-    puts "Voici la liste des handles classée par ordre alphabétique #{journalist_sorted}"
+    puts "Voici la liste des handles classée par ordre alphabétique: "
+    puts journalist_sorted
 end
 
 def handle_sort_by_size (tableau)
     sort_by_size = tableau.sort_by {|x| x.length}
-    puts "Voici la liste des handles classée par ordre de taille croissant #{sort_by_size}!"
+    puts "Voici la liste des handles classée par ordre de taille croissant:"
+    puts  sort_by_size
 end
 
 def handle_epenser1 (tableau)
@@ -67,13 +57,13 @@ def handle_epenser1 (tableau)
     puts "Voici l'index de epenser dans le tableau: #{epenser_index}"
 end
 
-def handle_sort_by_size (tableau)
+def handle_grouped_by_size(tableau)
     compteur = []
-    ((handle_max_length(tableau))).times do |i|
+    (tableau.length).times do |i|
         i += 1
         h = 0
         tableau.each do |n|
-            if n.length == i
+            if n.length == i+1
                 h += 1
             end      
         end 
@@ -83,12 +73,6 @@ def handle_sort_by_size (tableau)
                             puts "Il y a #{n} handle(s) contenant #{index+1} caractères!" 
                             end}
 end
-
-def handle_sort_by_size_with_hash (tableau)
-    #building in progress
-    dico = {}
-end
-
 
 def menu(tableau)
     b = "oui"
@@ -112,7 +96,7 @@ def menu(tableau)
     when 1
         handle_length (a)
     when 2 
-        handle_min_length_in_menu (a)
+        handle_min_length (a)
     when 3 
         handle_5_caracter (a)
     when 4 
@@ -124,7 +108,7 @@ def menu(tableau)
     when 7 
         handle_epenser1 (a)
     when 8
-        handle_sort_by_size (a)
+        handle_grouped_by_size (a)
     end
     
     puts "Si tu veux savoir d'autres trucs dit 'oui' sinon dit 'non'"
