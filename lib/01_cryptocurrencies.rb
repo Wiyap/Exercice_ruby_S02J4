@@ -13,9 +13,9 @@ def highest_price (comb)
             highest << key
         end
     end
-    return highest
+    puts "les crypto avec le cours le plus haut (>1000) sont: "
+    puts "#{highest}"
 end
-
 def lowest_price (comb)
     lowest = []
     comb.each do |key , value|
@@ -23,7 +23,8 @@ def lowest_price (comb)
             lowest << key
         end
     end
-    puts lowest
+    puts "les crypto avec le cours le plus bas (<0.000001) sont:"
+    puts "#{lowest}"
 end
 
 def lower_than_6000 (comb)
@@ -36,15 +37,56 @@ def lower_than_6000 (comb)
     return lower
 end
 
+def lower_than_6000_menu (comb)
+    b = lower_than_6000 (comb)
+    puts "les crypto avec un cours inférieur à 6000 sont:"
+    puts "#{b}"
+end
+
+
 def best_in_6000 (comb)
-    best = lower_than_6000(comb)
+    best = lower_than_6000 (comb)
     h = 0.0
     best.each do |n|
         if  (n.to_f) > h.to_f
             h = n 
         end
     end
+    puts "La devise la plus chère dans celles dont le cours est inférieur à 6000 est: "
+    print ">"
     puts h
 end
 
-best_in_6000 (combined)
+
+def menu(tableau)
+    b = "oui"
+    a = tableau
+    while b == "oui"
+    
+    puts "Ici on balance de l'info comme ça! Tiens dit moi ce que tu veux et je le met direct dans ta bouche <3"
+    puts "Tape 1 pour savoir quelles crypto ont la plus grande valeur. (>1000)"
+    puts "Tape 2 pour savoir quelles crypto ont la plus petit valeur. (< 0.000001)"
+    puts "Tape 3 pour savoir quelles sont les devises avec un cours inférieur à 6000."
+    puts "Tape 4 pour savoir quelle est la devise la plus chère dans celles dont le cours est inférieur à 6000."
+    print ">"
+
+    input = gets.chomp.to_i
+
+    case input
+    when 1
+        highest_price (a)
+    when 2 
+        lowest_price  (a)
+    when 3 
+        lower_than_6000_menu  (a)
+    when 4 
+        best_in_6000 (a)
+    end
+    
+    puts "Si tu veux savoir d'autres trucs dit 'oui' sinon dit 'non'"
+    print">"
+    b = gets.chomp
+    end
+end
+
+menu(combined)
